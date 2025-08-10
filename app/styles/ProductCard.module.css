@@ -1,0 +1,41 @@
+/* app/styles/ProductCard.module.css */
+.card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(67,160,71,0.08);
+  border: 1px solid #e0f2f1;
+  padding: 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.imageWrapper {
+  background: #e8f5e9;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  width: 180px;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.image {
+  border-radius: 8px;
+  object-fit: cover;
+}
+.info {
+  width: 100%;
+}
+.name {
+  color: #388e3c;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.price {
+  color: #43a047;
+  font-weight: 500;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}

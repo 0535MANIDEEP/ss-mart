@@ -1,0 +1,31 @@
+/*
+  styles/globals.css
+  Global styles for FreshMart Grocery Store MVP
+  Uses Roboto font and green accents for a fresh look
+*/
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap');
+
+body {
+  font-family: 'Roboto', Arial, sans-serif;
+  background: #f6fff6;
+  color: #222;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3 {
+  color: #43a047;
+  font-weight: 700;
+}
+
+a {
+  color: #43a047;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Add more styles as needed for a clean, green-themed UI */

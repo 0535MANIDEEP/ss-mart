@@ -1,0 +1,64 @@
+/* app/styles/AdminProduct.module.css */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  font-family: 'Roboto', Arial, sans-serif;
+}
+.title {
+  color: #43a047;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+.form {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(67,160,71,0.08);
+  border: 1px solid #e0f2f1;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+.input {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #43a047;
+  margin-bottom: 1rem;
+}
+.button {
+  background: #43a047;
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  font-weight: 500;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-right: 1rem;
+}
+.delete {
+  background: #d32f2f;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+.list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+@media (min-width: 600px) {
+  .list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 900px) {
+  .list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

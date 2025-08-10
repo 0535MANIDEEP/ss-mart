@@ -1,0 +1,46 @@
+/* app/styles/AdminDashboard.module.css */
+.sidebar {
+  width: 220px;
+  background: #43a047;
+  color: #fff;
+  min-height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 2rem 1rem;
+  font-family: 'Roboto', Arial, sans-serif;
+}
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+.sidebar a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+.sidebar a.active, .sidebar a:hover {
+  background: #388e3c;
+}
+.main {
+  margin-left: 240px;
+  padding: 2rem 2rem 2rem 2rem;
+  background: #f6fff6;
+  min-height: 100vh;
+}
+@media (max-width: 900px) {
+  .sidebar {
+    width: 100%;
+    position: static;
+    min-height: auto;
+    padding: 1rem;
+  }
+  .main {
+    margin-left: 0;
+    padding: 1rem;
+  }
+}
