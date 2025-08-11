@@ -104,7 +104,7 @@ function Sidebar() {
           top-0 left-0 md:top-16
           h-screen md:h-[calc(100vh-4rem-3rem)]
           w-4/5 max-w-xs md:w-64 md:max-w-none
-          bg-white dark:bg-gray-900 dark:text-gray-100 shadow-2xl md:shadow-lg
+          bg-white dark:bg-gray-950 dark:text-white shadow-2xl md:shadow-lg
           transition-all duration-300 ease-in-out
           ${open ? 'translate-x-0' : '-translate-x-full'}
           md:translate-x-0 md:block

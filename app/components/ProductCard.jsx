@@ -13,7 +13,7 @@ import AddToCartButton from './AddToCartButton';
  */
 export default function ProductCard({ product }) {
   return (
-    <div className="bg-white dark:bg-gray-900 dark:text-gray-100 rounded-lg shadow-md border border-green-100 dark:border-gray-800 p-3 sm:p-4 flex flex-col items-center text-center transition-all duration-300 ease-in-out hover:shadow-xl hover:-translate-y-2 hover:scale-[1.03] group w-full max-w-xs mx-auto" role="region" aria-label={`Product: ${product.name}`}> 
+  <div className="bg-white dark:bg-gray-950 dark:text-white rounded-lg shadow-md border border-green-200 dark:border-gray-800 p-3 sm:p-4 flex flex-col items-center text-center transition-all duration-300 ease-in-out hover:shadow-xl hover:-translate-y-2 hover:scale-[1.03] group w-full max-w-xs mx-auto" role="region" aria-label={`Product: ${product.name}`}> 
       <div className="w-full flex justify-center mb-3 sm:mb-4">
         <Image
           src={product.image_url || '/placeholder.png'}

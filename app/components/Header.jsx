@@ -68,10 +68,10 @@ export default function Header() {
   }
 
   return (
-  <header className="bg-green-700 text-white shadow-md h-16 sticky top-0 z-30 flex items-center w-full dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
+  <header className="bg-green-800 text-white shadow-md h-16 sticky top-0 z-30 flex items-center w-full dark:bg-gray-950 dark:text-white transition-colors duration-300">
           {/* Dark mode toggle */}
           <button
-            className="ml-2 sm:ml-4 p-2 rounded-full bg-green-100 dark:bg-gray-800 dark:text-yellow-300 text-green-700 hover:bg-green-200 dark:hover:bg-gray-700 transition-colors"
+            className="ml-2 sm:ml-4 p-2 rounded-full bg-green-200 dark:bg-gray-800 dark:text-yellow-200 text-green-800 hover:bg-green-300 dark:hover:bg-gray-700 transition-colors"
             aria-label="Toggle dark mode"
             onClick={() => setDark(d => !d)}
           >
