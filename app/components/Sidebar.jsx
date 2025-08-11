@@ -3,6 +3,7 @@
 
 
 import React, { useState } from 'react';
+import { useSidebar } from '../providers';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
@@ -33,7 +34,7 @@ import { useAuth } from './AuthContext';
 
 function Sidebar() {
   const [open, setOpen] = useState(false);
-  const [collapsed, setCollapsed] = useState(false);
+  const { collapsed, setCollapsed } = useSidebar();
   const pathname = usePathname();
   const { roles, user, loading } = useAuth();
 
@@ -96,6 +97,8 @@ function Sidebar() {
     return null;
   }
 
+  // Sidebar width classes
+  const sidebarWidth = collapsed ? 'md:w-16' : 'md:w-64';
   return (
     <>
       <aside
@@ -103,22 +106,20 @@ function Sidebar() {
           fixed z-40 md:z-40
           top-0 left-0 md:top-16
           h-screen md:h-[calc(100vh-4rem-3rem)]
-          w-4/5 max-w-xs md:w-64 md:max-w-none
+          w-4/5 max-w-xs ${sidebarWidth} md:max-w-none
           bg-white dark:bg-gray-950 dark:text-white shadow-2xl md:shadow-lg
           transition-all duration-300 ease-in-out
           ${open ? 'translate-x-0' : '-translate-x-full'}
           md:translate-x-0 md:block
-          ${collapsed ? 'md:w-16' : 'md:w-64'}
           will-change-transform will-change-width
         `}
         style={{ minHeight: 0 }}
         aria-label="Sidebar"
       >
-        {/* Collapse/Expand button for desktop only */}
-        <div className="hidden md:flex items-center justify-between px-2 py-2 border-b border-green-100">
-          {/* User avatar only when expanded, icon only when collapsed */}
+        {/* User avatar and greeting at the top */}
+        <div className="hidden md:flex items-center gap-2 w-full px-2 py-2">
           {user && (
-            <div className="flex items-center gap-2 w-full">
+            <>
               <div className="bg-green-200 text-green-800 rounded-full w-8 h-8 flex items-center justify-center font-bold text-lg">
                 {user.user_metadata?.avatar_url ? (
                   <img src={user.user_metadata.avatar_url} alt="avatar" className="w-8 h-8 rounded-full object-cover" />
@@ -129,25 +130,37 @@ function Sidebar() {
               {!collapsed && (
                 <span className="text-green-900 font-semibold text-sm">Hello, {user.user_metadata?.first_name || user.email?.split('@')[0]}</span>
               )}
-            </div>
+            </>
           )}
-          {/* Collapse button: vertical center, right edge */}
         </div>
-        {/* Collapse button absolutely positioned at right edge, vertical center */}
-        <button
-          onClick={() => setCollapsed(!collapsed)}
-          className="hidden md:flex items-center justify-center absolute top-1/2 right-0 -translate-y-1/2 translate-x-1/2 z-50 w-8 h-8 bg-green-100 border border-green-300 rounded-full shadow hover:bg-green-200 focus:outline-none transition-colors"
-          aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-          title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-          tabIndex={0}
-          onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') setCollapsed(!collapsed); }}
+        {/* Collapse/Expand button: half inside, half outside sidebar (modern look) */}
+        <div
+          className="hidden md:flex items-center justify-end"
+          style={{
+            position: 'absolute',
+            top: '50%',
+            right: '-24px', // half of button width (w-8 = 32px)
+            transform: 'translateY(-50%)',
+            zIndex: 50,
+            pointerEvents: 'auto',
+          }}
         >
-          {collapsed ? (
-            <span aria-hidden="true">&#9654;</span>
-          ) : (
-            <span aria-hidden="true">&#9664;</span>
-          )}
-  </button>
+          <button
+            onClick={() => setCollapsed(!collapsed)}
+            className="flex items-center justify-center w-12 h-12 bg-green-100 border border-green-300 rounded-full shadow hover:bg-green-200 focus:outline-none transition-colors"
+            aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+            title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+            tabIndex={0}
+            onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') setCollapsed(!collapsed); }}
+            style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.10)' }}
+          >
+            {collapsed ? (
+              <span aria-hidden="true" style={{ fontSize: 24 }}>&#9654;</span>
+            ) : (
+              <span aria-hidden="true" style={{ fontSize: 24 }}>&#9664;</span>
+            )}
+          </button>
+        </div>
         {/* Mobile Sidebar header: user info and close button, styled for mobile */}
         <div className="md:hidden flex items-center justify-between px-4 py-4 border-b border-green-100 bg-white sticky top-0 z-50">
           <div className="flex items-center gap-2">
