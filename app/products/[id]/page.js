@@ -2,6 +2,7 @@
 import React, { Suspense } from 'react';
 import { supabase } from '../../../lib/supabaseClient';
 import AddToCartButton from '../../components/AddToCartButton';
+import Image from 'next/image';
 
 export default async function ProductDetailsPage({ params }) {
   let product = null;
@@ -20,9 +21,9 @@ export default async function ProductDetailsPage({ params }) {
 
   if (error) {
     return (
-      <main style={{ fontFamily: 'Roboto, Arial, sans-serif', background: '#f6fff6', minHeight: '100vh', color: '#222' }}>
-        <div style={{ maxWidth: 600, margin: '0 auto', padding: '2rem', textAlign: 'center' }}>
-          <h1 style={{ color: '#d32f2f' }}>Error</h1>
+      <main className="font-sans bg-green-50 min-h-screen text-gray-900">
+        <div className="max-w-xl mx-auto p-8 text-center">
+          <h1 className="text-red-700 text-2xl font-bold mb-2">Error</h1>
           <p>{error}</p>
         </div>
       </main>
@@ -31,24 +32,30 @@ export default async function ProductDetailsPage({ params }) {
 
   if (!product) {
     return (
-      <main style={{ fontFamily: 'Roboto, Arial, sans-serif', background: '#f6fff6', minHeight: '100vh', color: '#222' }}>
-        <div style={{ maxWidth: 600, margin: '0 auto', padding: '2rem', textAlign: 'center' }}>
-          <h1 style={{ color: '#43a047' }}>Loading...</h1>
+      <main className="font-sans bg-green-50 min-h-screen text-gray-900">
+        <div className="max-w-xl mx-auto p-8 text-center">
+          <h1 className="text-green-700 text-2xl font-bold mb-2">Loading...</h1>
         </div>
       </main>
     );
   }
 
   return (
-    <main style={{ fontFamily: 'Roboto, Arial, sans-serif', background: '#f6fff6', minHeight: '100vh', color: '#222' }}>
-      <div style={{ maxWidth: 600, margin: '0 auto', padding: '2rem' }}>
-        <img src={product.image_url || '/placeholder.png'} alt={product.name} style={{ width: '100%', maxWidth: 220, height: 220, objectFit: 'cover', borderRadius: 12, background: '#e8f5e9', marginBottom: '1rem' }} />
-        <h1 style={{ color: '#43a047', fontWeight: 700, fontSize: '2rem', marginBottom: '0.5rem' }}>{product.name}</h1>
-        <div style={{ color: '#388e3c', fontWeight: 500, fontSize: '1.2rem', marginBottom: '0.5rem' }}>${product.price}</div>
-        <p style={{ color: '#222', marginBottom: '1rem' }}>{product.description}</p>
-        <div style={{ color: product.available ? '#43a047' : '#d32f2f', marginBottom: '1rem' }}>
-          {product.available ? 'In Stock' : 'Out of Stock'}
+    <main className="font-sans bg-green-50 min-h-screen text-gray-900">
+      <div className="max-w-xl mx-auto p-8">
+        <div className="flex justify-center mb-4">
+          <Image
+            src={product.image_url || '/placeholder.png'}
+            alt={product.name}
+            width={220}
+            height={220}
+            className="w-full max-w-[220px] h-[220px] object-cover rounded-xl bg-green-50 mb-4"
+          />
         </div>
+        <h1 className="text-green-700 font-bold text-2xl mb-2">{product.name}</h1>
+        <div className="text-green-800 font-semibold text-lg mb-2">${product.price}</div>
+        <p className="text-gray-900 mb-4">{product.description}</p>
+        <div className={`mb-4 font-medium ${product.available ? 'text-green-700' : 'text-red-700'}`}>{product.available ? 'In Stock' : 'Out of Stock'}</div>
         <Suspense fallback={<div>Loading cart...</div>}>
           <AddToCartButton product={product} />
         </Suspense>

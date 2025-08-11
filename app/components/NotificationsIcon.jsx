@@ -10,27 +10,11 @@ export default function NotificationsIcon({ onClick }) {
     <button
       aria-label="Notifications"
       onClick={onClick}
-      style={{
-        background: 'none',
-        border: 'none',
-        position: 'relative',
-        marginLeft: 16,
-        cursor: 'pointer',
-      }}
+      className="bg-transparent border-none relative ml-4 cursor-pointer focus:outline-none"
     >
-      <span style={{ fontSize: 24, color: '#fff' }}>🔔</span>
+      <span className="text-2xl text-white">🔔</span>
       {unreadCount > 0 && (
-        <span style={{
-          position: 'absolute',
-          top: -4,
-          right: -8,
-          background: '#d32f2f',
-          color: '#fff',
-          borderRadius: '50%',
-          padding: '2px 7px',
-          fontSize: '0.9rem',
-          fontWeight: 700,
-        }}>
+        <span className="absolute -top-1 -right-2 bg-red-600 text-white rounded-full px-2 py-0.5 text-xs font-bold">
           {unreadCount}
         </span>
       )}

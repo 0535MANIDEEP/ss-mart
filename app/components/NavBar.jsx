@@ -8,27 +8,32 @@ export default function NavBar() {
   const { user, roles, signOut, loading } = useAuth();
 
   return (
-    <nav style={{ background: 'linear-gradient(90deg, #43e97b 0%, #38f9d7 100%)', padding: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>
-        <Link href="/" style={{ marginRight: '1rem', fontWeight: 'bold', color: '#155724' }}>SS Mart</Link>
+    <nav className="bg-gradient-to-r from-green-400 via-green-300 to-teal-200 px-4 py-3 flex justify-between items-center shadow-md sticky top-0 z-30">
+      <div className="flex items-center space-x-4">
+        <Link href="/" className="mr-4 font-bold text-green-900 text-lg tracking-wide hover:underline focus:outline-none">SS Mart</Link>
         {user && (
           <>
-            <Link href="/products" style={{ marginRight: '1rem', color: '#155724' }}>Products</Link>
-            <Link href="/cart" style={{ marginRight: '1rem', color: '#155724' }}>Cart</Link>
-            <Link href="/profile" style={{ marginRight: '1rem', color: '#155724' }}>Profile</Link>
+            <Link href="/products" className="mr-4 text-green-900 hover:text-green-700 transition-colors">Products</Link>
+            <Link href="/cart" className="mr-4 text-green-900 hover:text-green-700 transition-colors">Cart</Link>
+            <Link href="/profile" className="mr-4 text-green-900 hover:text-green-700 transition-colors">Profile</Link>
             {roles.includes('admin') && (
-              <Link href="/admin/dashboard" style={{ marginRight: '1rem', color: '#155724' }}>Admin Dashboard</Link>
+              <Link href="/admin/dashboard" className="mr-4 text-green-900 hover:text-green-700 transition-colors">Admin Dashboard</Link>
             )}
           </>
         )}
       </div>
       <div>
         {loading ? (
-          <span>Loading...</span>
+          <span className="text-green-900">Loading...</span>
         ) : user ? (
-          <button onClick={signOut} style={{ background: '#155724', color: '#fff', border: 'none', padding: '0.5rem 1rem', borderRadius: '4px' }}>Logout</button>
+          <button
+            onClick={signOut}
+            className="bg-green-900 text-white border-none px-4 py-2 rounded hover:bg-green-800 transition-colors focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2"
+          >
+            Logout
+          </button>
         ) : (
-          <Link href="/auth/sign-in" style={{ color: '#155724' }}>Login</Link>
+          <Link href="/auth/sign-in" className="text-green-900 hover:text-green-700 transition-colors">Login</Link>
         )}
       </div>
     </nav>

@@ -10,46 +10,34 @@ export default function CartDrawer({ open, onClose }) {
   if (!open) return null;
 
   return (
-    <div style={{
-      position: 'fixed',
-      top: 0,
-      right: 0,
-      width: 340,
-      height: '100vh',
-      background: '#fff',
-      boxShadow: '-2px 0 12px rgba(67,160,71,0.18)',
-      zIndex: 2000,
-      padding: '2rem 1rem',
-      display: 'flex',
-      flexDirection: 'column',
-    }}>
+    <div className="fixed top-0 right-0 w-[340px] h-screen bg-white shadow-2xl z-[2000] p-8 flex flex-col">
       <button
-        style={{ position: 'absolute', top: 16, right: 16, background: 'none', border: 'none', fontSize: 24, cursor: 'pointer', color: '#43a047' }}
+        className="absolute top-4 right-4 bg-transparent border-none text-2xl cursor-pointer text-green-700 hover:text-green-900 focus:outline-none"
         onClick={onClose}
         aria-label="Close cart"
       >
         ×
       </button>
-      <h2 style={{ color: '#43a047', fontWeight: 700, fontSize: '1.3rem', marginBottom: '1rem', textAlign: 'center' }}>Your Cart</h2>
+      <h2 className="text-green-700 font-bold text-xl mb-4 text-center">Your Cart</h2>
       {items.length === 0 ? (
-        <div style={{ color: '#888', textAlign: 'center', marginTop: '2rem' }}>Your cart is empty.</div>
+        <div className="text-gray-500 text-center mt-8">Your cart is empty.</div>
       ) : (
-        <div style={{ flex: 1, overflowY: 'auto' }}>
+        <div className="flex-1 overflow-y-auto">
           {items.map(item => (
-            <div key={item.id} style={{ display: 'flex', alignItems: 'center', marginBottom: '1rem', borderBottom: '1px solid #e0f2f1', paddingBottom: '1rem' }}>
-              <div style={{ flex: 1 }}>
-                <div style={{ fontWeight: 600 }}>{item.name}</div>
-                <div style={{ color: '#43a047', fontWeight: 500 }}>${item.price}</div>
-                <div style={{ display: 'flex', alignItems: 'center', marginTop: 8 }}>
+            <div key={item.id} className="flex items-center mb-4 border-b border-green-100 pb-4">
+              <div className="flex-1">
+                <div className="font-semibold">{item.name}</div>
+                <div className="text-green-700 font-medium">${item.price}</div>
+                <div className="flex items-center mt-2">
                   <input
                     type="number"
                     min={1}
                     value={item.quantity}
                     onChange={e => updateQuantity(item.id, Math.max(1, Number(e.target.value)))}
-                    style={{ width: 48, padding: '0.25rem', borderRadius: 4, border: '1px solid #43a047', textAlign: 'center', marginRight: 8 }}
+                    className="w-12 px-1 py-1 rounded border border-green-700 text-center mr-2 focus:outline-none focus:ring-2 focus:ring-green-300"
                   />
                   <button
-                    style={{ background: '#d32f2f', color: '#fff', border: 'none', borderRadius: 6, padding: '0.3rem 0.8rem', cursor: 'pointer' }}
+                    className="bg-red-600 text-white border-none rounded px-3 py-1 text-sm font-medium hover:bg-red-700 transition-colors cursor-pointer"
                     onClick={() => removeFromCart(item.id)}
                   >
                     Remove
@@ -60,11 +48,14 @@ export default function CartDrawer({ open, onClose }) {
           ))}
         </div>
       )}
-      <div style={{ textAlign: 'right', fontWeight: 700, fontSize: '1.1rem', color: '#43a047', marginTop: '1rem' }}>
+      <div className="text-right font-bold text-lg text-green-700 mt-4">
         Subtotal: ${subtotal.toFixed(2)}
       </div>
       {items.length > 0 && (
-        <a href="/checkout" style={{ background: '#43a047', color: '#fff', padding: '0.75rem 1.5rem', borderRadius: 8, textDecoration: 'none', fontWeight: 500, display: 'block', textAlign: 'center', marginTop: '2rem' }}>
+        <a
+          href="/checkout"
+          className="bg-green-700 text-white py-3 px-6 rounded-lg font-medium block text-center mt-8 hover:bg-green-800 transition-colors"
+        >
           Checkout
         </a>
       )}

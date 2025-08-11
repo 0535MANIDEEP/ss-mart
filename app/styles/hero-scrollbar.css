@@ -1,0 +1,23 @@
+/* Custom thin, styled scrollbar for hero section only */
+.hero-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  background: #f3f4f6;
+}
+.hero-scrollbar::-webkit-scrollbar-thumb {
+  background: #22c55e;
+  border-radius: 6px;
+}
+.hero-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #22c55e #f3f4f6;
+  overscroll-behavior: contain;
+}
+
+/* Hide scrollbars on html/body for all browsers */
+html, body {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+html::-webkit-scrollbar, body::-webkit-scrollbar {
+  display: none;
+}

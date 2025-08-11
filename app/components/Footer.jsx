@@ -1,12 +1,28 @@
 // app/components/Footer.jsx
 "use client";
-import React from 'react';
+
+import { MapPinIcon } from '@heroicons/react/24/outline';
+
+
+/**
+ * Footer: Always fixed at the bottom, never moves up, never overlaps content.
+ * Height: h-12 (48px). No margin-top. Content is always visible.
+ */
+
+/**
+ * Footer: Minimal, modern, always fixed at the bottom.
+ * Responsive, clean, and documented.
+ */
 
 export default function Footer() {
   return (
-    <footer className="bg-green-50 text-green-800 border-t border-green-100 py-4 text-center text-sm mt-8">
-      <div className="max-w-5xl mx-auto px-4">
-        SS Mart (Sai Sangameshwara mart) - Shankarpally: Located in Shankarpally, Hyderabad, next to the Vegetable Market and near Gowtham Traders & BNR Hospital Lane.
+    <footer className="fixed bottom-0 left-0 w-full h-12 bg-green-50 text-green-800 border-t border-green-100 flex items-center justify-center text-xs md:text-sm z-30 shadow-inner select-none">
+      <div className="w-full max-w-5xl mx-auto flex items-center justify-between px-4">
+        <span className="hidden sm:flex items-center gap-1">
+          <MapPinIcon className="h-5 w-5 text-green-700 inline-block" />
+          SS Mart (Sai Sangameshwara mart) - Shankarpally
+        </span>
+        <span className="block mx-auto sm:mx-0">&copy; {new Date().getFullYear()} SS Mart</span>
       </div>
     </footer>
   );

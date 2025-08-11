@@ -1,6 +1,7 @@
 "use client";
 // app/profile/page.js
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { useAuth } from '../components/AuthContext';
 import { supabase } from '../../lib/supabaseClient';
 import { useRouter } from 'next/navigation';
@@ -169,46 +170,46 @@ export default function ProfilePage() {
     <main className="min-h-screen bg-green-50 font-['Roboto'] text-gray-900">
       <div className="max-w-2xl mx-auto p-6">
         <h1 className="text-3xl font-bold text-green-700 mb-6 text-center">Profile</h1>
-        <form className="bg-white rounded-lg shadow border p-6 mb-8" onSubmit={handleProfileUpdate}>
-          <div className="mb-4 flex items-center">
-            <label className="block mb-1 font-medium mr-4">Profile Picture</label>
-            <img src={form.avatar_url || '/placeholder.png'} alt="avatar" className="w-16 h-16 rounded-full mr-4 object-cover border" />
-            <input type="file" accept="image/*" onChange={handleAvatarUpload} disabled={avatarLoading} />
+        <form className="bg-white rounded-lg shadow border p-3 sm:p-6 mb-8 w-full max-w-full" onSubmit={handleProfileUpdate}>
+          <div className="mb-4 flex flex-col sm:flex-row items-center gap-2 sm:gap-4 w-full max-w-full">
+            <label className="block mb-1 font-medium mr-0 sm:mr-4 w-full max-w-full truncate">Profile Picture</label>
+            <Image src={form.avatar_url || '/placeholder.png'} alt="avatar" width={64} height={64} className="w-16 h-16 rounded-full object-cover border" />
+            <input type="file" accept="image/*" onChange={handleAvatarUpload} disabled={avatarLoading} className="max-w-[140px]" />
           </div>
-          <div className="mb-4">
-            <label className="block mb-1 font-medium">Name</label>
-            <input className="w-full p-2 border border-green-700 rounded" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} required />
+          <div className="mb-4 w-full max-w-full">
+            <label className="block mb-1 font-medium w-full max-w-full truncate">Name</label>
+            <input className="w-full p-2 border border-green-700 rounded break-words max-w-full" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} required maxLength={40} />
           </div>
-          <div className="mb-4">
-            <label className="block mb-1 font-medium">Email</label>
-            <input className="w-full p-2 border border-green-700 rounded bg-gray-100" value={profile.email} disabled />
+          <div className="mb-4 w-full max-w-full">
+            <label className="block mb-1 font-medium w-full max-w-full truncate">Email</label>
+            <input className="w-full p-2 border border-green-700 rounded bg-gray-100 break-words max-w-full" value={profile.email} disabled />
           </div>
-          <div className="mb-4">
-            <label className="block mb-1 font-medium">Phone</label>
-            <input className="w-full p-2 border border-green-700 rounded" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} required />
+          <div className="mb-4 w-full max-w-full">
+            <label className="block mb-1 font-medium w-full max-w-full truncate">Phone</label>
+            <input className="w-full p-2 border border-green-700 rounded break-words max-w-full" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} required maxLength={20} />
           </div>
           {error && <div className="text-red-600 mb-2">{error}</div>}
           {success && <div className="text-green-700 mb-2">{success}</div>}
           <button className="bg-green-700 text-white px-6 py-2 rounded font-medium" type="submit">Update Profile</button>
         </form>
-        <div className="bg-white rounded-lg shadow border p-6 mb-8">
+        <div className="bg-white rounded-lg shadow border p-4 sm:p-6 mb-8">
           <h2 className="text-lg font-bold text-green-700 mb-2">Saved Addresses</h2>
-          <form className="mb-4 flex" onSubmit={handleAddAddress}>
-            <input className="w-full p-2 border border-green-700 rounded mr-2" value={addressForm.address} onChange={e => setAddressForm({ address: e.target.value })} placeholder="Add new address" required />
-            <button className="bg-green-700 text-white px-4 py-2 rounded font-medium" type="submit">Add</button>
+          <form className="mb-4 flex flex-col sm:flex-row gap-2 sm:gap-0" onSubmit={handleAddAddress}>
+            <input className="w-full p-2 border border-green-700 rounded sm:mr-2 truncate" value={addressForm.address} onChange={e => setAddressForm({ address: e.target.value })} placeholder="Add new address" required maxLength={100} />
+            <button className="bg-green-700 text-white px-4 py-2 rounded font-medium mt-2 sm:mt-0" type="submit">Add</button>
           </form>
           {addressError && <div className="text-red-600 mb-2">{addressError}</div>}
           {addressSuccess && <div className="text-green-700 mb-2">{addressSuccess}</div>}
           <ul>
             {addresses.map((addr, idx) => (
               <li key={idx} className="flex justify-between items-center mb-2">
-                <span>{addr}</span>
+                <span className="truncate max-w-[180px] sm:max-w-xs" title={addr}>{addr}</span>
                 <button className="text-red-600 ml-2" onClick={() => handleDeleteAddress(idx)}>Delete</button>
               </li>
             ))}
           </ul>
         </div>
-        <form className="bg-white rounded-lg shadow border p-6 mb-8" onSubmit={handleChangePassword}>
+  <form className="bg-white rounded-lg shadow border p-4 sm:p-6 mb-8" onSubmit={handleChangePassword}>
           <h2 className="text-lg font-bold text-green-700 mb-2">Change Password</h2>
           <div className="mb-4">
             <label className="block mb-1 font-medium">Current Password</label>
@@ -222,7 +223,7 @@ export default function ProfilePage() {
           {passwordSuccess && <div className="text-green-700 mb-2">{passwordSuccess}</div>}
           <button className="bg-green-700 text-white px-6 py-2 rounded font-medium" type="submit">Change Password</button>
         </form>
-        <h2 className="text-xl font-bold text-green-700 mb-4">Order History</h2>
+  <h2 className="text-xl font-bold text-green-700 mb-4">Order History</h2>
         {loadingOrders ? (
           <div>Loading orders...</div>
         ) : orders.length === 0 ? (
@@ -230,31 +231,31 @@ export default function ProfilePage() {
         ) : (
           <ul className="mb-8">
             {orders.map(order => (
-              <li key={order.order_id} className="mb-4 p-4 bg-white rounded shadow border cursor-pointer" onClick={() => fetchOrderDetails(order.order_id)}>
-                <div className="flex justify-between items-center">
-                  <span className="font-medium">Order #{order.order_id}</span>
-                  <span className="text-green-700">{order.status}</span>
+              <li key={order.order_id} className="mb-4 p-4 bg-white rounded shadow border cursor-pointer overflow-x-auto" onClick={() => fetchOrderDetails(order.order_id)}>
+                <div className="flex flex-col xs:flex-row xs:justify-between xs:items-center gap-1 xs:gap-0">
+                  <span className="font-medium truncate">Order #{order.order_id}</span>
+                  <span className="text-green-700 truncate">{order.status}</span>
                 </div>
-                <div className="text-sm text-gray-600">{new Date(order.created_at).toLocaleString()}</div>
-                <div className="font-bold">Total: ${order.total_price}</div>
+                <div className="text-sm text-gray-600 truncate">{new Date(order.created_at).toLocaleString()}</div>
+                <div className="font-bold truncate">Total: ${order.total_price}</div>
               </li>
             ))}
           </ul>
         )}
         {selectedOrder && (
-          <div className="bg-white rounded-lg shadow border p-6 mb-8">
+          <div className="bg-white rounded-lg shadow border p-4 sm:p-6 mb-8 overflow-x-auto">
             <h3 className="text-lg font-bold mb-2">Order Details</h3>
-            <div className="mb-2">Status: <span className="font-medium text-green-700">{selectedOrder.status}</span></div>
-            <div className="mb-2">Date: {new Date(selectedOrder.created_at).toLocaleString()}</div>
-            <div className="mb-2">Delivery Address: {selectedOrder.address}</div>
-            <div className="mb-2">Phone: {selectedOrder.phone}</div>
-            <div className="mb-2 font-bold">Total: ${selectedOrder.total_price}</div>
+            <div className="mb-2">Status: <span className="font-medium text-green-700 truncate">{selectedOrder.status}</span></div>
+            <div className="mb-2 truncate">Date: {new Date(selectedOrder.created_at).toLocaleString()}</div>
+            <div className="mb-2 truncate">Delivery Address: <span className="truncate" title={selectedOrder.address}>{selectedOrder.address}</span></div>
+            <div className="mb-2 truncate">Phone: <span className="truncate">{selectedOrder.phone}</span></div>
+            <div className="mb-2 font-bold truncate">Total: ${selectedOrder.total_price}</div>
             <h4 className="font-bold mt-4 mb-2">Products</h4>
             <ul>
               {selectedOrder.items.map(item => (
-                <li key={item.product_id} className="mb-2 flex items-center">
-                  <img src={item.products?.image_url || '/placeholder.png'} alt={item.products?.name} className="w-12 h-12 rounded mr-3 bg-green-100 object-cover" />
-                  <span className="font-medium">{item.products?.name}</span> x {item.quantity} @ ${item.price}
+                <li key={item.product_id} className="mb-2 flex items-center overflow-x-auto">
+                  <Image src={item.products?.image_url || '/placeholder.png'} alt={item.products?.name} width={48} height={48} className="w-12 h-12 rounded mr-3 bg-green-100 object-cover" />
+                  <span className="font-medium truncate max-w-[120px] sm:max-w-[200px]" title={item.products?.name}>{item.products?.name}</span> x {item.quantity} @ ${item.price}
                 </li>
               ))}
             </ul>

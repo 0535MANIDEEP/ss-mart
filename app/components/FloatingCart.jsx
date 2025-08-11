@@ -1,4 +1,5 @@
 // app/components/FloatingCart.jsx
+// app/components/FloatingCart.jsx
 "use client";
 import React, { useContext, useState } from 'react';
 import { CartContext } from './CartContext';
@@ -12,41 +13,18 @@ export default function FloatingCart() {
   return (
     <>
       <button
-        style={{
-          position: 'fixed',
-          bottom: 32,
-          right: 32,
-          background: '#43a047',
-          color: '#fff',
-          borderRadius: '50%',
-          width: 56,
-          height: 56,
-          boxShadow: '0 2px 8px rgba(67,160,71,0.18)',
-          border: 'none',
-          fontWeight: 700,
-          fontSize: '1.3rem',
-          cursor: 'pointer',
-          zIndex: 1000,
-        }}
+        className="fixed bottom-8 right-8 bg-green-700 text-white rounded-full w-14 h-14 shadow-lg border-none font-bold text-xl cursor-pointer z-[1000] flex items-center justify-center focus:outline-none hover:bg-green-800 transition-colors"
         aria-label="View cart"
         onClick={() => setOpen(true)}
       >
-        🛒
-        {cartCount > 0 && (
-          <span style={{
-            position: 'absolute',
-            top: 8,
-            right: 8,
-            background: '#fff',
-            color: '#43a047',
-            borderRadius: '50%',
-            padding: '2px 8px',
-            fontSize: '0.9rem',
-            fontWeight: 700,
-          }}>
-            {cartCount}
-          </span>
-        )}
+        <span className="relative">
+          🛒
+          {cartCount > 0 && (
+            <span className="absolute -top-2 -right-3 bg-white text-green-700 rounded-full px-2 py-0.5 text-xs font-bold border border-green-700">
+              {cartCount}
+            </span>
+          )}
+        </span>
       </button>
       <CartDrawer open={open} onClose={() => setOpen(false)} />
     </>

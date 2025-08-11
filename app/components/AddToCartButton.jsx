@@ -8,18 +8,7 @@ export default function AddToCartButton({ product }) {
 
   return (
     <button
-      style={{
-        background: '#43a047',
-        color: '#fff',
-        padding: '0.75rem 1.5rem',
-        borderRadius: 8,
-        border: 'none',
-        fontWeight: 500,
-        fontSize: '1rem',
-        cursor: 'pointer',
-        marginTop: '1rem',
-        opacity: product.available ? 1 : 0.5,
-      }}
+      className={`bg-green-700 text-white py-3 px-6 rounded-lg font-medium text-base mt-4 transition-opacity hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2 ${product.available ? '' : 'opacity-50 cursor-not-allowed'}`}
       disabled={!product.available}
       onClick={() => addToCart(product)}
     >

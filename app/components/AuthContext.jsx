@@ -11,6 +11,9 @@ export function AuthProvider({ children }) {
   const [session, setSession] = useState(null);
   const [error, setError] = useState(null);
   const [roles, setRoles] = useState([]);
+  // Store first and last name for greeting
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
 
   useEffect(() => {
     supabase.auth.getSession().then(async ({ data, error }) => {
@@ -25,8 +28,23 @@ export function AuthProvider({ children }) {
           .eq('user_id', data.session.user.id);
         if (roleError) setError(roleError.message);
         setRoles(roleData ? roleData.map(r => r.role) : []);
+        // Fetch first/last name from user metadata or profile table
+        const meta = data.session.user.user_metadata || {};
+        if (meta.first_name && meta.last_name) {
+          setFirstName(meta.first_name);
+          setLastName(meta.last_name);
+        } else if (meta.full_name) {
+          const [first, ...rest] = meta.full_name.split(' ');
+          setFirstName(first);
+          setLastName(rest.join(' '));
+        } else if (data.session.user.email) {
+          setFirstName(data.session.user.email.split('@')[0]);
+          setLastName("");
+        }
       } else {
         setRoles([]);
+        setFirstName("");
+        setLastName("");
       }
       setLoading(false);
     });
@@ -40,8 +58,23 @@ export function AuthProvider({ children }) {
           .eq('user_id', session.user.id);
         if (roleError) setError(roleError.message);
         setRoles(roleData ? roleData.map(r => r.role) : []);
+        // Fetch first/last name from user metadata or profile table
+        const meta = session.user.user_metadata || {};
+        if (meta.first_name && meta.last_name) {
+          setFirstName(meta.first_name);
+          setLastName(meta.last_name);
+        } else if (meta.full_name) {
+          const [first, ...rest] = meta.full_name.split(' ');
+          setFirstName(first);
+          setLastName(rest.join(' '));
+        } else if (session.user.email) {
+          setFirstName(session.user.email.split('@')[0]);
+          setLastName("");
+        }
       } else {
         setRoles([]);
+        setFirstName("");
+        setLastName("");
       }
     });
     return () => {
@@ -55,7 +88,7 @@ export function AuthProvider({ children }) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, loading, session, error, roles, hasRole }}>
+    <AuthContext.Provider value={{ user, loading, session, error, roles, hasRole, firstName, lastName }}>
       {children}
     </AuthContext.Provider>
   );

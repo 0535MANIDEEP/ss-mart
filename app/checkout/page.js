@@ -125,7 +125,7 @@ export default function CheckoutPage() {
   }
 
   if (loading) {
-    return <div style={{ textAlign: 'center', marginTop: '4rem' }}>Loading...</div>;
+    return <div className="text-center mt-16">Loading...</div>;
   }
   if (!user) {
     return null;
@@ -135,52 +135,49 @@ export default function CheckoutPage() {
   const steps = ['Shipping', 'Payment', 'Review', 'Confirmation'];
 
   return (
-    <main style={{ fontFamily: 'Roboto, Arial, sans-serif', background: '#f6fff6', minHeight: '100vh', color: '#222' }}>
-      <div style={{ maxWidth: 500, margin: '0 auto', padding: '2rem' }}>
-        <h1 style={{ color: '#43a047', fontWeight: 700, fontSize: '2rem', marginBottom: '1.5rem', textAlign: 'center' }}>Checkout</h1>
-        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 24 }}>
+    <main className="font-sans bg-green-50 min-h-screen text-gray-900">
+      <div className="max-w-md mx-auto p-8">
+        <h1 className="text-green-700 font-bold text-2xl mb-6 text-center">Checkout</h1>
+        <div className="flex justify-center mb-6 gap-4">
           {steps.map((s, i) => (
-            <div key={s} style={{
-              fontWeight: step === i + 1 ? 700 : 400,
-              color: step === i + 1 ? '#43a047' : '#888',
-              marginRight: i < steps.length - 1 ? 16 : 0,
-              borderBottom: step === i + 1 ? '2px solid #43a047' : '2px solid #e0f2f1',
-              paddingBottom: 4,
-              fontSize: '1rem',
-              transition: 'color 0.2s',
-            }}>{s}</div>
+            <div
+              key={s}
+              className={`pb-1 text-base border-b-2 ${step === i + 1 ? 'font-bold text-green-700 border-green-700' : 'font-normal text-gray-400 border-green-100'} ${i < steps.length - 1 ? 'mr-4' : ''}`}
+            >
+              {s}
+            </div>
           ))}
         </div>
         {step === 1 && (
-          <form onSubmit={handleNext} style={{ background: '#fff', borderRadius: 12, boxShadow: '0 2px 8px rgba(67,160,71,0.08)', border: '1px solid #e0f2f1', padding: '2rem' }}>
-            <div style={{ marginBottom: '1rem' }}>
-              <label style={{ display: 'block', marginBottom: 4 }}>Name</label>
-              <input name="name" value={form.name} onChange={handleChange} style={{ width: '100%', padding: '0.5rem', borderRadius: 6, border: '1px solid #43a047' }} required />
+          <form onSubmit={handleNext} className="bg-white rounded-xl shadow border border-green-100 p-8">
+            <div className="mb-4">
+              <label className="block mb-1 font-medium">Name</label>
+              <input name="name" value={form.name} onChange={handleChange} className="w-full p-2 rounded border border-green-700" required />
             </div>
-            <div style={{ marginBottom: '1rem' }}>
-              <label style={{ display: 'block', marginBottom: 4 }}>Email</label>
-              <input name="email" value={form.email} onChange={handleChange} style={{ width: '100%', padding: '0.5rem', borderRadius: 6, border: '1px solid #43a047' }} required />
+            <div className="mb-4">
+              <label className="block mb-1 font-medium">Email</label>
+              <input name="email" value={form.email} onChange={handleChange} className="w-full p-2 rounded border border-green-700" required />
             </div>
-            <div style={{ marginBottom: '1rem' }}>
-              <label style={{ display: 'block', marginBottom: 4 }}>Delivery Address</label>
-              <input name="address" value={form.address} onChange={handleChange} style={{ width: '100%', padding: '0.5rem', borderRadius: 6, border: '1px solid #43a047' }} required />
+            <div className="mb-4">
+              <label className="block mb-1 font-medium">Delivery Address</label>
+              <input name="address" value={form.address} onChange={handleChange} className="w-full p-2 rounded border border-green-700" required />
             </div>
-            <div style={{ marginBottom: '1rem' }}>
-              <label style={{ display: 'block', marginBottom: 4 }}>Phone</label>
-              <input name="phone" value={form.phone} onChange={handleChange} style={{ width: '100%', padding: '0.5rem', borderRadius: 6, border: '1px solid #43a047' }} required />
+            <div className="mb-4">
+              <label className="block mb-1 font-medium">Phone</label>
+              <input name="phone" value={form.phone} onChange={handleChange} className="w-full p-2 rounded border border-green-700" required />
             </div>
-            {error && <div style={{ color: '#d32f2f', marginBottom: '1rem' }}>{error}</div>}
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 16 }}>
+            {error && <div className="text-red-600 mb-4">{error}</div>}
+            <div className="flex justify-between mt-4">
               <span />
-              <button type="submit" style={{ background: '#43a047', color: '#fff', padding: '0.75rem 1.5rem', borderRadius: 8, border: 'none', fontWeight: 500, fontSize: '1rem', cursor: 'pointer' }}>Next</button>
+              <button type="submit" className="bg-green-700 text-white py-3 px-6 rounded-lg font-medium text-base hover:bg-green-800 transition-colors">Next</button>
             </div>
           </form>
         )}
         {step === 2 && (
-          <form onSubmit={handleNext} style={{ background: '#fff', borderRadius: 12, boxShadow: '0 2px 8px rgba(67,160,71,0.08)', border: '1px solid #e0f2f1', padding: '2rem' }}>
-            <div style={{ marginBottom: '1rem' }}>
-              <label style={{ display: 'block', marginBottom: 4 }}>Payment Method</label>
-              <select name="payment" value={form.payment} onChange={handleChange} style={{ width: '100%', padding: '0.5rem', borderRadius: 6, border: '1px solid #43a047' }}>
+          <form onSubmit={handleNext} className="bg-white rounded-xl shadow border border-green-100 p-8">
+            <div className="mb-4">
+              <label className="block mb-1 font-medium">Payment Method</label>
+              <select name="payment" value={form.payment} onChange={handleChange} className="w-full p-2 rounded border border-green-700">
                 <option value="COD">Cash on Delivery</option>
                 <option value="UPI">UPI</option>
                 <option value="card">Credit/Debit Card</option>
@@ -188,65 +185,65 @@ export default function CheckoutPage() {
             </div>
             {form.payment === 'card' && (
               <>
-                <div style={{ marginBottom: '1rem' }}>
-                  <label style={{ display: 'block', marginBottom: 4 }}>Card Number</label>
-                  <input name="card" value={form.card} onChange={handleChange} style={{ width: '100%', padding: '0.5rem', borderRadius: 6, border: '1px solid #43a047' }} maxLength={16} required />
+                <div className="mb-4">
+                  <label className="block mb-1 font-medium">Card Number</label>
+                  <input name="card" value={form.card} onChange={handleChange} className="w-full p-2 rounded border border-green-700" maxLength={16} required />
                 </div>
-                <div style={{ marginBottom: '1rem', display: 'flex', gap: '1rem' }}>
-                  <div style={{ flex: 1 }}>
-                    <label style={{ display: 'block', marginBottom: 4 }}>Expiry (MM/YY)</label>
-                    <input name="expiry" value={form.expiry} onChange={handleChange} style={{ width: '100%', padding: '0.5rem', borderRadius: 6, border: '1px solid #43a047' }} maxLength={5} required />
+                <div className="mb-4 flex gap-4">
+                  <div className="flex-1">
+                    <label className="block mb-1 font-medium">Expiry (MM/YY)</label>
+                    <input name="expiry" value={form.expiry} onChange={handleChange} className="w-full p-2 rounded border border-green-700" maxLength={5} required />
                   </div>
-                  <div style={{ flex: 1 }}>
-                    <label style={{ display: 'block', marginBottom: 4 }}>CVV</label>
-                    <input name="cvv" value={form.cvv} onChange={handleChange} style={{ width: '100%', padding: '0.5rem', borderRadius: 6, border: '1px solid #43a047' }} maxLength={3} required />
+                  <div className="flex-1">
+                    <label className="block mb-1 font-medium">CVV</label>
+                    <input name="cvv" value={form.cvv} onChange={handleChange} className="w-full p-2 rounded border border-green-700" maxLength={3} required />
                   </div>
                 </div>
               </>
             )}
-            {error && <div style={{ color: '#d32f2f', marginBottom: '1rem' }}>{error}</div>}
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 16 }}>
-              <button type="button" onClick={handlePrev} style={{ background: '#e0f2f1', color: '#43a047', padding: '0.75rem 1.5rem', borderRadius: 8, border: 'none', fontWeight: 500, fontSize: '1rem', cursor: 'pointer' }}>Back</button>
-              <button type="submit" style={{ background: '#43a047', color: '#fff', padding: '0.75rem 1.5rem', borderRadius: 8, border: 'none', fontWeight: 500, fontSize: '1rem', cursor: 'pointer' }}>Next</button>
+            {error && <div className="text-red-600 mb-4">{error}</div>}
+            <div className="flex justify-between mt-4">
+              <button type="button" onClick={handlePrev} className="bg-green-100 text-green-700 py-3 px-6 rounded-lg font-medium text-base hover:bg-green-200 transition-colors">Back</button>
+              <button type="submit" className="bg-green-700 text-white py-3 px-6 rounded-lg font-medium text-base hover:bg-green-800 transition-colors">Next</button>
             </div>
           </form>
         )}
         {step === 3 && (
-          <form onSubmit={e => { e.preventDefault(); handleOrder(); }} style={{ background: '#fff', borderRadius: 12, boxShadow: '0 2px 8px rgba(67,160,71,0.08)', border: '1px solid #e0f2f1', padding: '2rem' }}>
-            <h2 style={{ color: '#388e3c', fontSize: '1.1rem', fontWeight: 600, marginBottom: '1rem' }}>Order Review</h2>
-            <div style={{ marginBottom: '1rem' }}>
+          <form onSubmit={e => { e.preventDefault(); handleOrder(); }} className="bg-white rounded-xl shadow border border-green-100 p-8">
+            <h2 className="text-green-800 text-lg font-semibold mb-4">Order Review</h2>
+            <div className="mb-4">
               <b>Name:</b> {form.name}<br />
               <b>Email:</b> {form.email}<br />
               <b>Address:</b> {form.address}<br />
               <b>Phone:</b> {form.phone}<br />
               <b>Payment:</b> {form.payment}
             </div>
-            <ul style={{ listStyle: 'none', padding: 0, marginBottom: '1rem' }}>
+            <ul className="list-none p-0 mb-4">
               {items.map(item => (
-                <li key={item.id} style={{ marginBottom: '0.5rem' }}>
+                <li key={item.id} className="mb-2">
                   {item.name} x {item.quantity} - ${item.price * item.quantity}
                 </li>
               ))}
             </ul>
-            <div style={{ textAlign: 'right', fontWeight: 700, fontSize: '1.1rem', color: '#43a047', marginTop: '1rem' }}>
+            <div className="text-right font-bold text-lg text-green-700 mt-4">
               Subtotal: ${items.reduce((sum, item) => sum + item.price * item.quantity, 0).toFixed(2)}<br />
               Tax (5%): ${(items.reduce((sum, item) => sum + item.price * item.quantity, 0) * 0.05).toFixed(2)}<br />
               Total: ${(items.reduce((sum, item) => sum + item.price * item.quantity, 0) * 1.05).toFixed(2)}
             </div>
-            {error && <div style={{ color: '#d32f2f', marginBottom: '1rem' }}>{error}</div>}
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 16 }}>
-              <button type="button" onClick={handlePrev} style={{ background: '#e0f2f1', color: '#43a047', padding: '0.75rem 1.5rem', borderRadius: 8, border: 'none', fontWeight: 500, fontSize: '1rem', cursor: 'pointer' }}>Back</button>
-              <button type="submit" disabled={loadingOrder} style={{ background: '#43a047', color: '#fff', padding: '0.75rem 1.5rem', borderRadius: 8, border: 'none', fontWeight: 500, fontSize: '1rem', cursor: 'pointer' }}>{loadingOrder ? 'Placing Order...' : 'Confirm & Place Order'}</button>
+            {error && <div className="text-red-600 mb-4">{error}</div>}
+            <div className="flex justify-between mt-4">
+              <button type="button" onClick={handlePrev} className="bg-green-100 text-green-700 py-3 px-6 rounded-lg font-medium text-base hover:bg-green-200 transition-colors">Back</button>
+              <button type="submit" disabled={loadingOrder} className="bg-green-700 text-white py-3 px-6 rounded-lg font-medium text-base hover:bg-green-800 transition-colors disabled:opacity-60 disabled:cursor-not-allowed">{loadingOrder ? 'Placing Order...' : 'Confirm & Place Order'}</button>
             </div>
           </form>
         )}
         {step === 4 && (
-          <div style={{ background: '#fff', borderRadius: 12, boxShadow: '0 2px 8px rgba(67,160,71,0.08)', border: '1px solid #e0f2f1', padding: '2rem', textAlign: 'center' }}>
-            <h1 style={{ color: '#43a047' }}>Order Placed!</h1>
+          <div className="bg-white rounded-xl shadow border border-green-100 p-8 text-center">
+            <h1 className="text-green-700 text-2xl font-bold mb-2">Order Placed!</h1>
             <p>Thank you for your order.</p>
             <p>Your groceries will be delivered to: <b>{form.address}</b></p>
             <p>Order ID: <b>{orderId || 'N/A'}</b></p>
-            <a href="/products" style={{ color: '#43a047', textDecoration: 'underline' }}>Continue Shopping</a>
+            <a href="/products" className="text-green-700 underline hover:text-green-800">Continue Shopping</a>
           </div>
         )}
       </div>
