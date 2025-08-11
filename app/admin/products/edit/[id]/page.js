@@ -2,8 +2,8 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { supabase } from '../../../../lib/supabaseClient';
-import styles from '../../../styles/AdminProduct.module.css';
+import { supabase } from '../../../../../lib/supabaseClient.js';
+
 
 export default function EditProductPage({ params }) {
   const { id } = params;
@@ -37,15 +37,15 @@ export default function EditProductPage({ params }) {
     router.push('/admin/products');
   }
 
-  if (loading) return <div className={styles.loading}>Loading...</div>;
-  if (error) return <div className={styles.error}>{error}</div>;
-  if (!product) return <div className={styles.error}>Product not found.</div>;
+  if (loading) return <div className="text-gray-500 text-center py-8">Loading...</div>;
+  if (error) return <div className="text-red-600 text-center py-8">{error}</div>;
+  if (!product) return <div className="text-red-600 text-center py-8">Product not found.</div>;
 
   return (
-    <form className={styles.form} onSubmit={handleUpdate}>
-      <h1 className={styles.title}>Edit Product</h1>
+    <form className="bg-white rounded-lg shadow p-8 max-w-lg mx-auto mt-8" onSubmit={handleUpdate}>
+      <h1 className="text-2xl font-bold text-green-800 mb-6 text-center">Edit Product</h1>
       {/* ...form fields prefilled with product data... */}
-      <button className={styles.button} type="submit">Update Product</button>
+      <button className="bg-green-700 text-white px-6 py-2 rounded hover:bg-green-800 transition w-full mt-4" type="submit">Update Product</button>
     </form>
   );
 }

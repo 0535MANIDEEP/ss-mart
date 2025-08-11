@@ -2,16 +2,15 @@
 
 
 "use client";
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import ProductGrid from '../components/ProductGrid';
 
 export default function ProductsPage() {
-  // ProductGrid handles all listing, search, filters, sorting, pagination
   return (
-    <main style={{ fontFamily: 'Roboto, Arial, sans-serif', background: '#f6fff6', minHeight: '100vh', color: '#222' }}>
-      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '2rem 1rem' }}>
+    <main className="flex flex-col items-center min-h-[70vh] bg-green-50">
+      <section className="w-full max-w-6xl mx-auto p-8 md:p-12 bg-white rounded-xl shadow-md border border-green-100 mt-4">
         <ProductGrid />
-      </div>
+      </section>
     </main>
   );
 }

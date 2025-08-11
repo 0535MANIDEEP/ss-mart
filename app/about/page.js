@@ -8,20 +8,18 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    <main style={{ fontFamily: 'Roboto, Arial, sans-serif', background: '#f6fff6', minHeight: '100vh', color: '#222' }}>
-      <div style={{ maxWidth: 600, margin: '0 auto', padding: '2rem', background: '#fff', borderRadius: 12, boxShadow: '0 2px 8px rgba(67,160,71,0.08)', border: '1px solid #e0f2f1' }}>
-        <h1 style={{ color: '#43a047', fontWeight: 700, fontSize: '2rem', marginBottom: '1rem', textAlign: 'center' }}>
-          About SS Mart
-        </h1>
-        <p style={{ color: '#388e3c', fontSize: '1.1rem', marginBottom: '1.5rem', textAlign: 'center' }}>
+    <main className="flex flex-col items-center min-h-[70vh] bg-green-50">
+      <section className="w-full max-w-xl mx-auto p-8 bg-white rounded-xl shadow-md border border-green-100 mt-8">
+        <h1 className="text-3xl font-bold text-green-700 mb-4 text-center font-sans">About SS Mart</h1>
+        <p className="text-green-800 text-lg mb-6 text-center">
           SS Mart (Sai Sangameshwara mart) - Shankarpally: Located in Shankarpally, Hyderabad, next to the Vegetable Market and near Gowtham Traders & BNR Hospital Lane.
         </p>
-        <div style={{ color: '#222', fontSize: '1rem', marginBottom: '1rem', textAlign: 'center' }}>
+        <div className="text-gray-900 text-base mb-2 text-center">
           <b>Contact Info:</b><br />
-          Phone: <span style={{ color: '#888' }}>[Add phone here]</span><br />
-          Email: <span style={{ color: '#888' }}>[Add email here]</span>
+          Phone: <span className="text-gray-500">[Add phone here]</span><br />
+          Email: <span className="text-gray-500">[Add email here]</span>
         </div>
-      </div>
+      </section>
     </main>
   );
 }

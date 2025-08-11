@@ -15,28 +15,35 @@ export default function Header() {
   const [notifOpen, setNotifOpen] = useState(false);
 
   return (
-    <header style={{ background: '#43a047', color: '#fff', padding: '1rem 0', marginBottom: '2rem', position: 'relative' }}>
-      <nav style={{ maxWidth: 900, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <div style={{ fontWeight: 700, fontSize: '1.3rem', letterSpacing: 1 }}>FreshMart</div>
-        <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
-          <a href="/" style={{ color: '#fff', textDecoration: 'none', fontWeight: 500 }}>Home</a>
-          <a href="/products" style={{ color: '#fff', textDecoration: 'none', fontWeight: 500 }}>Products</a>
-          <a href="/cart" style={{ color: '#fff', textDecoration: 'none', fontWeight: 500, position: 'relative' }}>
+    <header className="bg-green-700 text-white shadow-md h-16 flex items-center sticky top-0 z-30">
+      <nav className="w-full max-w-5xl mx-auto flex items-center justify-between px-4">
+        <div className="font-bold text-xl tracking-wide">FreshMart</div>
+        <div className="flex gap-8 items-center relative">
+          <a href="/" className="hover:underline font-medium">Home</a>
+          <a href="/products" className="hover:underline font-medium">Products</a>
+          <a href="/cart" className="relative hover:underline font-medium">
             Cart
             {cartCount > 0 && (
-              <span style={{ position: 'absolute', top: -8, right: -18, background: '#fff', color: '#43a047', borderRadius: '50%', padding: '2px 8px', fontSize: '0.9rem', fontWeight: 700 }}>
+              <span className="absolute -top-2 -right-5 bg-white text-green-700 rounded-full px-2 py-0.5 text-xs font-bold border border-green-700">
                 {cartCount}
               </span>
             )}
           </a>
-          <NotificationsIcon onClick={() => setNotifOpen(v => !v)} />
+          <button
+            type="button"
+            aria-label="Show notifications"
+            className="focus:outline-none"
+            onClick={() => setNotifOpen(v => !v)}
+          >
+            <NotificationsIcon />
+          </button>
           {loading ? null : user ? (
             <>
-              <span style={{ color: '#fff', fontWeight: 500, marginLeft: '1rem' }}>Hi, {user.email}</span>
-              <a href="/auth/sign-out" style={{ color: '#fff', textDecoration: 'underline', marginLeft: '1rem' }}>Sign Out</a>
+              <span className="ml-2 font-medium">Hi, {user.email}</span>
+              <a href="/auth/sign-out" className="ml-2 underline hover:text-green-200">Sign Out</a>
             </>
           ) : (
-            <a href="/auth/sign-in" style={{ color: '#fff', textDecoration: 'underline', marginLeft: '1rem' }}>Sign In</a>
+            <a href="/auth/sign-in" className="ml-2 underline hover:text-green-200">Sign In</a>
           )}
         </div>
       </nav>

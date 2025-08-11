@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { supabase } from '../../../lib/supabaseClient';
 import { useAuth } from '../../components/AuthContext';
 import Image from 'next/image';
-import styles from '../../styles/AdminProduct.module.css';
+
 
 export default function AdminProductsPage() {
   const { user, loading } = useAuth();
@@ -49,26 +49,47 @@ export default function AdminProductsPage() {
   }
 
   return (
-    <div className={styles.list}>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
       {loadingProducts ? (
         <div>Loading products...</div>
       ) : products.length === 0 ? (
         <div>No products found.</div>
       ) : (
         products.map(product => (
-          <div key={product.id} style={{ background: '#fff', borderRadius: 12, boxShadow: '0 2px 8px rgba(67,160,71,0.08)', border: '1px solid #e0f2f1', padding: '1rem', textAlign: 'center' }}>
-            <Image src={product.image_url || '/placeholder.png'} alt={product.name} width={120} height={120} style={{ borderRadius: 8, marginBottom: '1rem', background: '#e8f5e9', objectFit: 'cover' }} />
-            <h2 style={{ color: '#388e3c', fontSize: '1.1rem', fontWeight: 600, marginBottom: '0.5rem' }}>{product.name}</h2>
-            <div style={{ color: '#43a047', fontWeight: 500, fontSize: '1rem' }}>${product.price}</div>
-            <div style={{ color: '#888', fontSize: '0.9rem', marginBottom: '0.5rem' }}>{product.category}</div>
-            <div style={{ color: '#222', fontSize: '0.95rem', marginBottom: '0.5rem' }}>{product.description}</div>
-            <button className={styles.button} onClick={() => handleEdit(product)}>Edit</button>
-            <button className={styles.delete} onClick={() => handleDelete(product.id)}>Delete</button>
+          <div
+            key={product.id}
+            className="bg-white rounded-xl shadow-md border border-green-100 p-6 flex flex-col items-center text-center"
+          >
+            <Image
+              src={product.image_url || '/placeholder.png'}
+              alt={product.name}
+              width={120}
+              height={120}
+              className="rounded-lg mb-4 bg-green-50 object-cover"
+            />
+            <h2 className="text-green-800 text-lg font-semibold mb-1">{product.name}</h2>
+            <div className="text-green-600 font-bold text-base">${product.price}</div>
+            <div className="text-gray-500 text-sm mb-1">{product.category}</div>
+            <div className="text-gray-800 text-sm mb-2">{product.description}</div>
+            <div className="flex gap-2 mt-2">
+              <button
+                className="px-4 py-1 rounded bg-green-600 text-white hover:bg-green-700 font-medium transition-colors"
+                onClick={() => handleEdit(product)}
+              >
+                Edit
+              </button>
+              <button
+                className="px-4 py-1 rounded bg-red-500 text-white hover:bg-red-600 font-medium transition-colors"
+                onClick={() => handleDelete(product.id)}
+              >
+                Delete
+              </button>
+            </div>
           </div>
         ))
       )}
-      {success && <div style={{ color: 'green', marginTop: '1rem' }}>{success}</div>}
-      {error && <div style={{ color: 'red', marginTop: '1rem' }}>{error}</div>}
+      {success && <div className="text-green-600 mt-4">{success}</div>}
+      {error && <div className="text-red-600 mt-4">{error}</div>}
     </div>
   );
 }

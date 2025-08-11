@@ -3,7 +3,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { supabase } from '../../lib/supabaseClient';
 import ProductCard from './ProductCard';
-import styles from '../styles/ProductGrid.module.css';
 
 export default function ProductGrid() {
 
@@ -111,22 +110,22 @@ export default function ProductGrid() {
   const [showFilters, setShowFilters] = useState(false);
 
   return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>Products</h1>
-      <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
-        <div style={{ flex: 1, minWidth: 220 }}>
+    <div className="w-full">
+      <h1 className="text-2xl font-bold mb-4">Products</h1>
+      <div className="flex flex-wrap items-center justify-between mb-4">
+        <div className="flex-1 min-w-[220px]">
           <input
             type="text"
             value={search}
             onChange={handleSearchChange}
             placeholder="Search products..."
             aria-label="Search products"
-            style={{ width: '100%', maxWidth: 320, padding: '0.5rem', borderRadius: 6, border: '1px solid #43a047', fontSize: '1rem' }}
+            className="w-full max-w-[320px] p-2 rounded border border-green-500 text-base"
           />
         </div>
         <button
           onClick={() => setShowFilters(f => !f)}
-          style={{ marginLeft: 16, background: '#43a047', color: '#fff', border: 'none', borderRadius: 8, padding: '0.5rem 1.2rem', fontWeight: 500, cursor: 'pointer', transition: 'background 0.2s' }}
+          className="ml-4 bg-green-500 text-white rounded px-4 py-2 font-medium transition duration-200"
           aria-expanded={showFilters}
           aria-controls="product-filters"
         >
@@ -135,46 +134,37 @@ export default function ProductGrid() {
       </div>
       <div
         id="product-filters"
-        style={{
-          maxHeight: showFilters ? 400 : 0,
-          overflow: 'hidden',
-          transition: 'max-height 0.4s cubic-bezier(.4,0,.2,1)',
-          marginBottom: showFilters ? 24 : 0,
-          background: '#e8f5e9',
-          borderRadius: 12,
-          padding: showFilters ? '1rem' : '0 1rem',
-        }}
+        className={`transition-max-height duration-400 overflow-hidden ${showFilters ? 'max-h-[400px]' : 'max-h-0'}`}
         aria-hidden={!showFilters}
       >
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16 }}>
+        <div className="flex flex-wrap gap-4">
           <div>
-            <div style={{ fontWeight: 500, marginBottom: 8 }}>Category</div>
+            <div className="font-medium mb-2">Category</div>
             {categories.map(cat => (
               <button
                 key={cat}
-                className={cat === selectedCategory ? styles.activeFilter : styles.filter}
+                className={`mr-2 mb-2 ${cat === selectedCategory ? 'bg-green-500 text-white' : 'bg-gray-200'}`}
                 onClick={() => handleCategoryChange(cat)}
-                style={{ marginRight: 8, marginBottom: 8 }}
               >
                 {cat}
               </button>
             ))}
           </div>
           <div>
-            <div style={{ fontWeight: 500, marginBottom: 8 }}>Price Range</div>
+            <div className="font-medium mb-2">Price Range</div>
             <input
               type="range"
               min={0}
               max={1000}
               value={filters.price[1]}
               onChange={e => handleFilterChange('price', [filters.price[0], Number(e.target.value)])}
-              style={{ width: 120 }}
+              className="w-30"
             />
-            <span style={{ marginLeft: 8 }}>${filters.price[0]} - ${filters.price[1]}</span>
+            <span className="ml-2">${filters.price[0]} - ${filters.price[1]}</span>
           </div>
           <div>
-            <div style={{ fontWeight: 500, marginBottom: 8 }}>Availability</div>
-            <label style={{ marginRight: 16 }}>
+            <div className="font-medium mb-2">Availability</div>
+            <label className="mr-4">
               <input type="checkbox" checked={filters.available} onChange={e => handleFilterChange('available', e.target.checked)} /> In Stock Only
             </label>
             <label>
@@ -182,8 +172,8 @@ export default function ProductGrid() {
             </label>
           </div>
           <div>
-            <div style={{ fontWeight: 500, marginBottom: 8 }}>Sort</div>
-            <select value={sort} onChange={handleSortChange} style={{ padding: '0.5rem', borderRadius: 6, border: '1px solid #43a047' }}>
+            <div className="font-medium mb-2">Sort</div>
+            <select value={sort} onChange={handleSortChange} className="p-2 rounded border border-green-500">
               <option value="popularity">Popularity</option>
               <option value="priceLow">Price: Low to High</option>
               <option value="priceHigh">Price: High to Low</option>
@@ -191,24 +181,24 @@ export default function ProductGrid() {
           </div>
         </div>
       </div>
-      <div style={{ marginBottom: 16, fontWeight: 500, color: '#388e3c' }}>
+      <div className="mb-4 font-medium text-green-700">
         {loading ? 'Searching...' : `${products.length} product${products.length !== 1 ? 's' : ''} found`}
       </div>
       {loading ? (
-        <div className={styles.loading}>Loading...</div>
+        <div className="text-green-700">Loading...</div>
       ) : error ? (
-        <div className={styles.error}>{error}</div>
+        <div className="text-red-600">{error}</div>
       ) : products.length === 0 ? (
-        <div className={styles.error}>No results found.</div>
+        <div className="text-red-600">No results found.</div>
       ) : (
-        <div className={styles.grid}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {products.map(product => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
       )}
       {!loading && hasMore && (
-        <div className={styles.loading}>Scroll down to load more...</div>
+        <div className="text-green-700">Scroll down to load more...</div>
       )}
     </div>
   );

@@ -1,3 +1,4 @@
+"use client";
 // app/profile/page.js
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../components/AuthContext';
