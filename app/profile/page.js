@@ -167,7 +167,7 @@ export default function ProfilePage() {
   if (loading || !user) return <div className="text-center mt-16">Loading...</div>;
 
   return (
-    <main className="min-h-screen bg-green-50 font-['Roboto'] text-gray-900">
+  <main className="min-h-screen bg-green-50 font-['Roboto'] text-gray-900" role="main" aria-label="Profile main content">
       <div className="max-w-2xl mx-auto p-6">
         <h1 className="text-3xl font-bold text-green-700 mb-6 text-center">Profile</h1>
         <form className="bg-white rounded-lg shadow border p-3 sm:p-6 mb-8 w-full max-w-full" onSubmit={handleProfileUpdate}>

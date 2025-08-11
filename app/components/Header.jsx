@@ -1,7 +1,28 @@
 // app/components/Header.jsx
 "use client";
 
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
+// Dark mode toggle hook
+function useDarkMode() {
+  const [dark, setDark] = useState(false);
+  useEffect(() => {
+    const root = window.document.documentElement;
+    if (dark) {
+      root.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      root.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  }, [dark]);
+  useEffect(() => {
+    const saved = localStorage.getItem('theme');
+    if (saved === 'dark') setDark(true);
+    else if (saved === 'light') setDark(false);
+    else setDark(window.matchMedia('(prefers-color-scheme: dark)').matches);
+  }, []);
+  return [dark, setDark];
+}
 import Link from 'next/link';
 import { CartContext } from './CartContext';
 
@@ -31,6 +52,7 @@ export default function Header() {
   const cartCount = items.reduce((sum, item) => sum + item.quantity, 0);
   const [notifOpen, setNotifOpen] = useState(false);
   const pathname = usePathname();
+  const [dark, setDark] = useDarkMode();
 
   // Dynamic page title based on route
   function getPageTitle() {
@@ -46,7 +68,19 @@ export default function Header() {
   }
 
   return (
-    <header className="bg-green-700 text-white shadow-md h-16 sticky top-0 z-30 flex items-center w-full">
+  <header className="bg-green-700 text-white shadow-md h-16 sticky top-0 z-30 flex items-center w-full dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
+          {/* Dark mode toggle */}
+          <button
+            className="ml-2 sm:ml-4 p-2 rounded-full bg-green-100 dark:bg-gray-800 dark:text-yellow-300 text-green-700 hover:bg-green-200 dark:hover:bg-gray-700 transition-colors"
+            aria-label="Toggle dark mode"
+            onClick={() => setDark(d => !d)}
+          >
+            {dark ? (
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m8.66-13.66l-.71.71M4.05 19.07l-.71.71M21 12h-1M4 12H3m16.66 5.66l-.71-.71M4.05 4.93l-.71-.71M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z" /></svg>
+            )}
+          </button>
       <div className="relative w-full h-full flex items-center">
         {/* Mobile menu icon: absolute, never overlaps logo */}
         <div className="absolute left-2 top-1/2 -translate-y-1/2 z-40 md:hidden flex items-center">

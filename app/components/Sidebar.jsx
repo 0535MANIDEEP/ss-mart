@@ -98,30 +98,18 @@ function Sidebar() {
 
   return (
     <>
-      {/* Mobile hamburger button: fixed at top-left, styled as part of header */}
-      <button
-        onClick={() => setOpen(!open)}
-        className="fixed top-0 left-0 z-50 md:hidden bg-green-700 text-white w-14 h-14 flex items-center justify-center shadow-lg rounded-br-2xl focus:outline-none active:scale-95 transition-transform duration-150"
-        aria-label="Open sidebar"
-        tabIndex={0}
-        onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') setOpen(!open); }}
-        style={{ touchAction: 'manipulation', borderTopLeftRadius: '0.75rem' }}
-      >
-        <span className="text-3xl" aria-hidden="true">☰</span>
-      </button>
-      {/* Sidebar: fixed below header, never above, never scrolls with content */}
-      {/* Sidebar: drawer on mobile, collapsible on desktop only */}
       <aside
         className={`
           fixed z-40 md:z-40
           top-0 left-0 md:top-16
           h-screen md:h-[calc(100vh-4rem-3rem)]
-          w-4/5 max-w-xs
-          bg-white shadow-2xl md:shadow-lg
-          transition-all duration-300
+          w-4/5 max-w-xs md:w-64 md:max-w-none
+          bg-white dark:bg-gray-900 dark:text-gray-100 shadow-2xl md:shadow-lg
+          transition-all duration-300 ease-in-out
           ${open ? 'translate-x-0' : '-translate-x-full'}
           md:translate-x-0 md:block
           ${collapsed ? 'md:w-16' : 'md:w-64'}
+          will-change-transform will-change-width
         `}
         style={{ minHeight: 0 }}
         aria-label="Sidebar"
